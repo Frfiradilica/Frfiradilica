@@ -1,0 +1,57 @@
+#include <stdio.h>
+
+int main() {
+    int n;
+    printf("Unesite broj elemenata niza: ");
+    scanf("%d", &n);
+
+    float niz[n];
+
+    // Unos elemenata niza
+    printf("Unesite decimalne brojeve u niz:\n");
+    for (int i = 0; i < n; i++) {
+        printf("niz[%d]: ", i);
+        scanf("%f", &niz[i]);
+    }
+
+    // Sortiranje u rastućem redosledu
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            if (niz[j] > niz[j + 1]) {
+                // Zamena elemenata
+                float temp = niz[j];
+                niz[j] = niz[j + 1];
+                niz[j + 1] = temp;
+            }
+        }
+    }
+
+    // Ispis sortiranog niza u rastućem redosledu
+    printf("Niz sortiran u rastucem redosledu:\n");
+    for (int i = 0; i < n; i++) {
+        printf("%.2f ", niz[i]);
+    }
+    printf("\n");
+
+    // Sortiranje u opadajućem redosledu
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            if (niz[j] < niz[j + 1]) {
+                // Zamena elemenata
+                float temp = niz[j];
+                niz[j] = niz[j + 1];
+                niz[j + 1] = temp;
+            }
+        }
+    }
+
+    // Ispis sortiranog niza u opadajućem redosledu
+    printf("Niz sortiran u opadajucem redosledu:\n");
+    for (int i = 0; i < n; i++) {
+        printf("%.2f ", niz[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
+
