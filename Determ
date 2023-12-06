@@ -1,0 +1,42 @@
+#include <stdio.h>
+
+int main() {
+    // Deklaracija matrice
+    int matrica[3][3];
+
+    // Unos elemenata matrice
+    printf("Unesite elemente matrice (3x3):\n");
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            printf("M[%d][%d]: ", i, j);
+            scanf("%d", &matrica[i][j]);
+        }
+    }
+
+    // Ispis matrice
+    printf("Uneta matrica:\n");
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            printf("%d\t", matrica[i][j]);
+        }
+        printf("\n");
+    }
+
+    // Izračunavanje determinantu
+    int det = 0;
+
+    // Prvi red determinante
+    det += matrica[0][0] * (matrica[1][1] * matrica[2][2] - matrica[1][2] * matrica[2][1]);
+
+    // Drugi red determinante
+    det -= matrica[0][1] * (matrica[1][0] * matrica[2][2] - matrica[1][2] * matrica[2][0]);
+
+    // Treći red determinante
+    det += matrica[0][2] * (matrica[1][0] * matrica[2][1] - matrica[1][1] * matrica[2][0]);
+
+    // Ispis determinantu
+    printf("Determinanta matrice: %d\n", det);
+
+    return 0;
+}
+
