@@ -59,10 +59,30 @@ int main() {
         }
     }
 
-    // Ispis rezultata
+    // Ispis rezultata množenja
     printf("Rezultat mnozenja:\n");
     for (int i = 0; i < redoviA; i++) {
         for (int j = 0; j < koloneB; j++) {
+            printf("%d\t", rezultat[i][j]);
+        }
+        printf("\n");
+    }
+
+    // Sabiranje matrica
+    printf("Rezultat sabiranja:\n");
+    for (int i = 0; i < redoviA; i++) {
+        for (int j = 0; j < koloneA; j++) {
+            rezultat[i][j] = matricaA[i][j] + matricaB[i][j];
+            printf("%d\t", rezultat[i][j]);
+        }
+        printf("\n");
+    }
+
+    // Oduzimanje matrica
+    printf("Rezultat oduzimanja:\n");
+    for (int i = 0; i < redoviA; i++) {
+        for (int j = 0; j < koloneA; j++) {
+            rezultat[i][j] = matricaA[i][j] - matricaB[i][j];
             printf("%d\t", rezultat[i][j]);
         }
         printf("\n");
