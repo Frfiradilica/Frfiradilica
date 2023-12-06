@@ -1,0 +1,72 @@
+#include <stdio.h>
+
+int main() {
+    // Deklaracija matrica
+    int redoviA, koloneA, redoviB, koloneB;
+
+    // Unos dimenzija matrice A
+    printf("Unesite broj redova matrice A: ");
+    scanf("%d", &redoviA);
+    printf("Unesite broj kolona matrice A: ");
+    scanf("%d", &koloneA);
+
+    // Unos dimenzija matrice B
+    printf("Unesite broj redova matrice B: ");
+    scanf("%d", &redoviB);
+    printf("Unesite broj kolona matrice B: ");
+    scanf("%d", &koloneB);
+
+    // Provera da li je množenje moguće
+    if (koloneA != redoviB) {
+        printf("Matrice nije moguce pomnoziti jer broj kolona matrice A nije jednak broju redova matrice B.\n");
+        return 1;
+    }
+
+    // Deklaracija i unos elemenata matrica
+    int matricaA[redoviA][koloneA], matricaB[redoviB][koloneB], rezultat[redoviA][koloneB];
+
+    // Unos elemenata matrice A
+    printf("Unesite elemente matrice A (%dx%d):\n", redoviA, koloneA);
+    for (int i = 0; i < redoviA; i++) {
+        for (int j = 0; j < koloneA; j++) {
+            printf("A[%d][%d]: ", i, j);
+            scanf("%d", &matricaA[i][j]);
+        }
+    }
+
+    // Unos elemenata matrice B
+    printf("Unesite elemente matrice B (%dx%d):\n", redoviB, koloneB);
+    for (int i = 0; i < redoviB; i++) {
+        for (int j = 0; j < koloneB; j++) {
+            printf("B[%d][%d]: ", i, j);
+            scanf("%d", &matricaB[i][j]);
+        }
+    }
+
+    // Inicijalizacija rezultatne matrice
+    for (int i = 0; i < redoviA; i++) {
+        for (int j = 0; j < koloneB; j++) {
+            rezultat[i][j] = 0;
+        }
+    }
+
+    // Izračunavanje proizvoda matrica
+    for (int i = 0; i < redoviA; i++) {
+        for (int j = 0; j < koloneB; j++) {
+            for (int k = 0; k < koloneA; k++) {
+                rezultat[i][j] += matricaA[i][k] * matricaB[k][j];
+            }
+        }
+    }
+
+    // Ispis rezultata
+    printf("Rezultat mnozenja:\n");
+    for (int i = 0; i < redoviA; i++) {
+        for (int j = 0; j < koloneB; j++) {
+            printf("%d\t", rezultat[i][j]);
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
