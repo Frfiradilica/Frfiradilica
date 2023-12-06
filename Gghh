@@ -1,0 +1,59 @@
+#include <stdio.h>
+
+int main() {
+    // Deklaracija matrica
+    int matricaA[2][2], matricaB[2][2], rezultat[2][2];
+
+    // Unos elemenata matrice A
+    printf("Unesite elemente matrice A (2x2):\n");
+    for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < 2; j++) {
+            printf("A[%d][%d]: ", i, j);
+            scanf("%d", &matricaA[i][j]);
+        }
+    }
+
+    // Unos elemenata matrice B
+    printf("Unesite elemente matrice B (2x2):\n");
+    for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < 2; j++) {
+            printf("B[%d][%d]: ", i, j);
+            scanf("%d", &matricaB[i][j]);
+        }
+    }
+
+    // Sabiranje matrica
+    printf("Rezultat sabiranja:\n");
+    for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < 2; j++) {
+            rezultat[i][j] = matricaA[i][j] + matricaB[i][j];
+            printf("%d\t", rezultat[i][j]);
+        }
+        printf("\n");
+    }
+
+    // Oduzimanje matrica
+    printf("Rezultat oduzimanja:\n");
+    for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < 2; j++) {
+            rezultat[i][j] = matricaA[i][j] - matricaB[i][j];
+            printf("%d\t", rezultat[i][j]);
+        }
+        printf("\n");
+    }
+
+    // Množenje matrica
+    printf("Rezultat mnozenja:\n");
+    for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < 2; j++) {
+            rezultat[i][j] = 0;
+            for (int k = 0; k < 2; k++) {
+                rezultat[i][j] += matricaA[i][k] * matricaB[k][j];
+            }
+            printf("%d\t", rezultat[i][j]);
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
