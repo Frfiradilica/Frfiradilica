@@ -1,0 +1,62 @@
+#include <stdio.h>
+
+// Funkcija za razmenu elemenata
+void swap(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+// Funkcija za održavanje max heap svojstava
+void maxHeapify(int arr[], int n, int i) {
+    int largest = i;
+    int left = 2 * i + 1;
+    int right = 2 * i + 2;
+
+    if (left < n && arr[left] > arr[largest])
+        largest = left;
+
+    if (right < n && arr[right] > arr[largest])
+        largest = right;
+
+    if (largest != i) {
+        swap(&arr[i], &arr[largest]);
+        maxHeapify(arr, n, largest);
+    }
+}
+
+// Heap sort funkcija
+void heapSort(int arr[], int n) {
+    // Izgradi max heap (reorganizuj niz)
+    for (int i = n / 2 - 1; i >= 0; i--)
+        maxHeapify(arr, n, i);
+
+    // Jedan po jedan izdvajaj elemente iz max heapa
+    for (int i = n - 1; i > 0; i--) {
+        swap(&arr[0], &arr[i]); // Pomeri trenutni koren na kraj
+        maxHeapify(arr, i, 0);  // Reorganizuj preostali deo heap-a
+    }
+}
+
+// Funkcija za ispis niza
+void printArray(int arr[], int size) {
+    for (int i = 0; i < size; i++)
+        printf("%d ", arr[i]);
+    printf("\n");
+}
+
+// Glavna funkcija
+int main() {
+    int arr[] = {12, 11, 13, 5, 6, 7};
+    int arr_size = sizeof(arr) / sizeof(arr[0]);
+
+    printf("Niz pre sortiranja:\n");
+    printArray(arr, arr_size);
+
+    heapSort(arr, arr_size);
+
+    printf("\nNiz posle sortiranja:\n");
+    printArray(arr, arr_size);
+
+    return 0;
+}
