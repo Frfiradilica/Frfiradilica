@@ -1,0 +1,55 @@
+section .data
+    nizA db 1, 2, 3, 4, 5, 6
+    nizB db 6 dup (?)
+    duzina dw 6
+
+section .code
+main PROC
+    mov eax, 0
+    mov ebx, 2
+    mov cx, duzina
+    mov si, 0
+    mov bl, 6
+
+provera:
+    ; Učitaj vrednost iz nizaA na osnovu indeksa si
+    mov al, nizA[si]
+
+    ; Provera da li je vrednost manja od 2
+    cmp al, 2
+    jl povecajIndeks
+
+    ; Deljenje vrednosti iz nizaA sa ebx
+    mov edx, 0
+    div ebx
+
+    ; Provera ostatka deljenja
+    cmp edx, 0
+    je povecajIndeks
+
+    ; Inkrementiranje delioca
+    inc ebx
+
+    ; Uporedi delioca sa vrednošću iz nizaA
+    cmp ebx, al
+    jb provera
+
+    ; Ako smo prošli kroz sve delioce, dodaj element u nizB
+dodajElement:
+    mov al, nizA[si]
+    mov nizB[si], al
+    jmp povecajIndeks
+
+povecajIndeks:
+    ; Inkrementiranje indeksa
+    inc si
+    ; Provera da li smo prošli kroz ceo niz
+    cmp si, cx
+    jl provera
+
+    ; Kraj programa
+    ; Dodajte dodatne instrukcije za završetak programa ako su potrebne
+    ; ...
+
+main ENDP
+END main
