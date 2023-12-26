@@ -1,0 +1,56 @@
+section .data
+    array_A db 4, 7, 12, 17, 21, 23, 29, 30  ; Primer niza A
+    array_size equ $ - array_A
+
+    array_B resb array_size  ; Rezerviši prostor za niz B
+
+section .text
+    global _start
+
+_start:
+    mov ecx, 0  ; Postavi brojač na početnu vrednost
+    mov edi, 0  ; Postavi indeks za niz B na početnu vrednost
+
+check_loop:
+    cmp ecx, array_size  ; Uporedi brojač sa veličinom niza A
+    jge end_program     ; Ako smo prošli kroz ceo niz A, završi program
+
+    mov al, [array_A + ecx]  ; Učitaj vrednost elementa niza A u registar AL
+    call is_prime  ; Pozovi podprogram za proveru prostog broja
+    test al, al
+    jz not_prime  ; Ako nije prost broj, preskoči sledeći deo
+
+    ; Ako je broj prost, upiši ga u niz B
+    mov [array_B + edi], al
+    inc edi  ; Inkrementiraj indeks za niz B
+
+not_prime:
+    inc ecx  ; Inkrementiraj brojač
+    jmp check_loop  ; Skoči na sledeću iteraciju petlje
+
+end_program:
+    ; Dodajte kod za završetak programa ovde
+
+; Podprogram za proveru prostog broja
+is_prime:
+    mov ebx, 2  ; Pocetna vrednost delioca
+    cmp ebx, al ; Provera da li je broj manji od 2
+    jbe .not_prime  ; Ako je manji ili jednak, nije prost
+
+check_divisor:
+    mov eax, ebx
+    xor edx, edx  ; Postavi gornje 32 bita registra edx na 0
+    div al        ; Deljenje eax sa al, rezultat u eax, ostatak u edx
+
+    cmp edx, 0
+    je .not_prime  ; Ako je ostatak 0, broj nije prost
+
+    inc ebx  ; Inkrementiraj delilac
+    cmp ebx, al  ; Uporedi delilac sa vrednošću broja
+    jb check_divisor  ; Ako je manji, proveri sledeći delilac
+
+    ret
+
+.not_prime:
+    mov al, 0  ; Postavi AL na 0 da označi da broj nije prost
+    ret
