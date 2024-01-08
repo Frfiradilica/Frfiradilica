@@ -1,0 +1,44 @@
+TITLE v01.asm
+
+; Opis: Tipovi adresiranja
+
+; ukljucivanje biblioteke
+INCLUDE rs32tfzr.inc
+
+
+.data
+	bajtPodatak DB 0C9h
+	recPodatak DW 3355h
+	dvorecPodatak DD 12345678h
+
+	zbir DW ?
+
+.code
+
+main PROC
+	; neposredno adresiranje (upis konkretne vrednosti na zeljenu lokaciju)
+ 	mov	al,11h
+	mov	ax,2233h
+	mov	eax,99887766h
+	mov	ah,00h
+
+	mov bajtPodatak,44h
+	mov recPodatak,4567h
+	mov dvorecPodatak,98765432h
+
+	; direktno adresiranje (premestanje podataka izmedju registara i memorije)
+	mov	eax,dvorecPodatak
+	mov	bx,recPodatak
+	mov	cl,bajtPodatak
+
+	; registarsko adresiranje (operandi su registri)
+	mov	dx,0
+	add	dx,ax
+	add	dx,bx
+
+	mov	zbir,dx
+
+	exit
+main ENDP
+
+END main

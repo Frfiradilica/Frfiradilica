@@ -1,0 +1,71 @@
+TITLE v04b.asm
+
+; Opis: aritmeticke operacije sa oznacenim 32-bitnim celim brojevima
+
+; ukljucivanje biblioteke
+INCLUDE rs32tfzr.inc
+
+
+.data
+	broj1	DD -13
+	broj2	DD -4
+	
+	negacija	DD ?
+	inkrement	DD ?
+	dekrement	DD ?
+	zbir		DD ?
+	razlika		DD ?
+	proizvod_l	DD ?
+	proizvod_h	DD ?
+	kolicnik	DD ?
+	ostatak		DD ?
+
+.code
+
+main PROC
+		
+	; negacija
+	mov	eax,broj1
+	neg	eax
+	mov	negacija,eax
+	
+	; inkrement
+	mov	eax,broj1
+	inc	eax
+	mov	inkrement,eax
+
+	; dekrement
+	mov	eax,broj1
+	dec	eax
+	mov	dekrement,eax
+
+	; sabiranje
+	mov	eax,broj1
+	add	eax,broj2
+	mov	zbir,eax
+
+	; oduzimanje
+	mov	eax,broj1
+	sub	eax,broj2
+	mov	razlika,eax
+
+	; mnozenje	
+	mov	eax,broj1
+	mov	ebx,broj2
+	imul	ebx
+	mov	proizvod_l,eax
+	mov	proizvod_h,edx
+
+	; deljenje
+	mov	eax,broj1
+	cdq
+	mov	ebx,broj2
+	idiv	bx
+	mov	kolicnik,eax
+	mov	ostatak,edx
+
+	; povratak u OS
+	exit
+main ENDP
+
+END main

@@ -1,0 +1,50 @@
+TITLE v07.asm
+
+; Opis: Osnovne logicke operacije - rotiranje
+
+; ukljucivanje biblioteke
+INCLUDE rs32tfzr.inc
+
+
+.data
+	bajt	db	82h	;neoznaceni broj
+	levoCF	db	?	;rotiranje u levo kroz Carry Flag (CF)
+	levo	db	?	;rotiranje u levo bez CF
+	desnoCF	db	?	;rotiranje u desno kroz CF
+	desno	db	?	;rotiranje udesno bez CF
+
+
+.code
+
+main PROC
+		
+	;rotiranje u levo kroz CF za 1 mesto
+	clc			;CF<-0 , Clear Carry Flag
+	mov	al,bajt
+	rcl	al,1
+	mov	levoCF,al
+	
+	;rotiranje u levo bez CF za 3 mesta
+	mov	cl,3
+	mov	al,bajt
+	rol	al,cl
+	mov	levo,al
+		
+	;rotiranje u desno kroz CF za 2 mesto
+	clc			;CF<-0 , Clear Carry Flag
+	mov	cl,2
+	mov	al,bajt
+	rcr	al,cl
+	mov	desnoCF,al
+	
+	;rotiranje u desno bez CF za 3 mesta
+	mov	cl,3	;brojac za pomeranje
+	mov	al,bajt
+	ror	al,cl
+	mov	desno,al
+
+	; povratak u OS
+	exit
+main ENDP
+
+END main

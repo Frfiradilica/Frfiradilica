@@ -1,0 +1,63 @@
+TITLE v130.asm
+
+; Opis: Nizovi
+
+COMMENT !
+Napisati program koji odredjuje najveci (najmanji) element niza.
+Resenje sa procedurom.
+!
+
+; ukljucivanje biblioteke
+INCLUDE rs32tfzr.inc
+
+
+.data
+	N		dd	8
+	niz	db	1,4,7,3,6,9,2,4
+	max db ?
+
+.code
+
+main PROC
+	mov	ecx,N		;broj elemenata niza
+	mov	ebx,offset niz	;adresa niza
+	call	odrediMaxNiza8
+	mov	max,dl		;upisivanje max u memoriju
+
+	; povratak u OS
+	exit
+main ENDP
+
+;-------------------------------------------------------------
+; procedura za odredjivanje najveceg (max) elementa niza 
+; 8-bitnih elemenata
+;
+; ULAZ
+;	ECX - dimenzija niza
+;	EBX - adresa niz
+; IZLAZ
+;	DL - najveci element niza (max)
+;-------------------------------------------------------------
+odrediMaxNiza8	PROC
+	push	eax
+	push	esi
+	;odredjivanje max
+	mov	esi,0		
+	mov	dl,[ebx+esi]	;max = niz[0]
+	mov	esi,1		
+sledeciElement:
+	mov	al,[ebx+esi]
+	cmp	al,dl
+	jle	povecajIndeks
+	mov	dl,al		;novi max
+povecajIndeks:
+	inc	esi
+	cmp	esi,ecx
+	jl	sledeciElement
+	;povratak
+	pop	esi
+	pop	eax
+	ret
+odrediMaxNiza8	ENDP
+
+END main

@@ -1,0 +1,70 @@
+TITLE v04.asm
+
+; Opis: aritmeticke operacije sa neoznacenim 8-bitnim celim brojevima
+
+; ukljucivanje biblioteke
+INCLUDE rs32tfzr.inc
+
+
+.data
+	broj1	DB 31
+	broj2	DB 9
+	
+	negacija	DB ?
+	inkrement	DB ?
+	dekrement	DB ?
+	zbir		DB ?
+	razlika		DB ?
+	proizvod	DW ?
+	kolicnik	DB ?
+	ostatak		DB ?
+
+.code
+
+main PROC
+	mov	eax,0
+	
+	; negacija
+	mov	al,broj1
+	neg	al
+	mov	negacija,al
+	
+	; inkrement
+	mov	al,broj1
+	inc	al
+	mov	inkrement,al
+
+	; dekrement
+	mov	al,broj1
+	dec	al
+	mov	dekrement,al
+
+	; sabiranje
+	mov	al,broj1
+	add	al,broj2
+	mov	zbir,al
+
+	; oduzimanje
+	mov	al,broj1
+	sub	al,broj2
+	mov	razlika,al
+
+	; mnozenje	
+	mov	al,broj1
+	mov	bl,broj2
+	mul	bl
+	mov	proizvod,ax
+
+	; deljenje
+	mov	al,broj1
+	cbw
+	mov	bl,broj2
+	div	bl
+	mov	kolicnik,al
+	mov	ostatak,ah
+
+	; povratak u OS
+	exit
+main ENDP
+
+END main

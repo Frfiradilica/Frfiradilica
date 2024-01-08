@@ -1,0 +1,30 @@
+TITLE v03a.asm
+
+; Opis: problem sa prekoracenjem vrednosti - resenje na primeru 8-bitnih celih brojeva
+
+; ukljucivanje biblioteke
+INCLUDE rs32tfzr.inc
+
+
+.data
+	broj1	DB 250
+	broj2	DB 11
+	
+	zbir	DW ?
+
+.code
+
+main PROC
+	mov	eax,0
+	
+	mov	al,broj1
+	add	al,broj2
+	adc	ah,0
+
+	mov	zbir,ax
+		
+	; povratak u OS
+	exit
+main ENDP
+
+END main

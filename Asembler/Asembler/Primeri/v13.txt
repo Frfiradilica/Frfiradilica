@@ -1,0 +1,43 @@
+TITLE v13.asm
+
+; Opis: Nizovi
+
+COMMENT !
+Napisati program koji odredjuje najveci (najmanji) element niza.
+!
+
+; ukljucivanje biblioteke
+INCLUDE rs32tfzr.inc
+
+
+.data
+	N		dd	8
+	niz	db	1,4,7,3,6,9,2,4
+	max db ?
+
+
+.code
+
+main PROC
+	mov	dl,niz[0]	; max
+	mov	ecx,N
+	mov	esi,1
+	
+sledeci:
+	mov	al,niz[esi]
+	cmp	al,dl
+	jng	povecajIndeks
+		mov	dl,al		; postavi novi max
+
+povecajIndeks:
+	inc	esi
+	cmp	esi,ecx
+	jl	sledeci
+	
+	mov	max,dl
+
+	; povratak u OS
+	exit
+main ENDP
+
+END main

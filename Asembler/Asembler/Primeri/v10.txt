@@ -1,0 +1,34 @@
+TITLE v10.asm
+
+; Opis: Kontrola toka izvrsenja programa - uslovno izvrsavanje, petlja
+
+COMMENT !
+Napisati program koji odredjuje zbir jednocifrenih brojeva.
+!
+
+; ukljucivanje biblioteke
+INCLUDE rs32tfzr.inc
+
+
+
+.data
+	zbir	dw 0
+
+
+.code
+
+main PROC
+	mov	cx,9
+	mov	dx,0		; zbir=0
+	
+sledeci:
+	add	dx,cx
+	loop	sledeci
+	
+	mov	zbir,dx
+
+	; povratak u OS
+	exit
+main ENDP
+
+END main

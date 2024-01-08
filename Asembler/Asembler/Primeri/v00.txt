@@ -1,0 +1,24 @@
+TITLE v00.asm
+
+; Opis: Rad sa podacima razlicite velicine
+
+; ukljucivanje biblioteke
+INCLUDE rs32tfzr.inc
+
+.data
+	bajtPodatak DB 0C9h
+	recPodatak DW 3355h
+	dvorecPodatak DD 12345678h
+
+.code
+
+main PROC
+	mov eax,0	
+	mov al,bajtPodatak
+	mov ax,recPodatak	
+	mov eax,dvorecPodatak	
+	mov ax,0		
+	exit
+main ENDP
+
+END main

@@ -1,0 +1,72 @@
+TITLE v04a.asm
+
+; Opis: aritmeticke operacije sa oznacenim 16-bitnim celim brojevima
+
+; ukljucivanje biblioteke
+INCLUDE rs32tfzr.inc
+
+
+.data
+	broj1	DW 23
+	broj2	DW -7
+	
+	negacija	DW ?
+	inkrement	DW ?
+	dekrement	DW ?
+	zbir		DW ?
+	razlika		DW ?
+	proizvod_l	DW ?
+	proizvod_h	DW ?
+	kolicnik	DW ?
+	ostatak		DW ?
+
+.code
+
+main PROC
+	mov	eax,0
+	
+	; negacija
+	mov	ax,broj1
+	neg	ax
+	mov	negacija,ax
+	
+	; inkrement
+	mov	ax,broj1
+	inc	ax
+	mov	inkrement,ax
+
+	; dekrement
+	mov	ax,broj1
+	dec	ax
+	mov	dekrement,ax
+
+	; sabiranje
+	mov	ax,broj1
+	add	ax,broj2
+	mov	zbir,ax
+
+	; oduzimanje
+	mov	ax,broj1
+	sub	ax,broj2
+	mov	razlika,ax
+
+	; mnozenje	
+	mov	ax,broj1
+	mov	bx,broj2
+	imul	bx
+	mov	proizvod_l,ax
+	mov	proizvod_h,dx
+
+	; deljenje
+	mov	ax,broj1
+	cwd
+	mov	bx,broj2
+	idiv	bx
+	mov	kolicnik,ax
+	mov	ostatak,dx
+
+	; povratak u OS
+	exit
+main ENDP
+
+END main

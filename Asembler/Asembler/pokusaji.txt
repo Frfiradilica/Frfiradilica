@@ -1,0 +1,160 @@
+Napisati program koji od polaznog niza celih broejava izdvaja u novi niz elemente koji su veci od -5 a manji od 5
+
+.data 
+N dd 6
+nizA db -1,0,1,2,3,4
+nizB db 2,3,1,5,7,-1
+nizM db 6 dup (?)
+
+.code
+main PROC
+
+mov esi,0
+mov ecx,niz
+mov eax,0
+
+sledeci:
+  mov al, nizA[esi]
+  mov bl, nizB[esi]
+  cmp al,bl
+  jg vece
+  je jednako
+  jl manje
+  
+vece:
+  mov nizM[esi],1
+  jmp povecajIndeks
+  
+manje:
+  mov nizM[esi],al
+  jmp povecajIndeks
+  
+povecajIndeks:
+  inc esi
+  cmp esi,ecx
+  jl sledeci
+  
+exit
+
+////////////////////////
+section .data
+    word_data dw 0xABCD ; Primer podatka tipa reči (16-bitna vrednost)
+    lower_nibble db 0    ; Bajt za niže 4 bita
+    upper_nibble db 0    ; Bajt za više 4 bita
+
+section .text
+    global _start
+
+_start:
+    mov ax, word_data     ; Učitaj reč u registar AX
+    call split_nibbles    ; Pozovi funkciju za odvajanje nižeg i višeg nibla
+
+    ; Rezultati su sada u registrima lower_nibble i upper_nibble
+    ; Ovde možete dodati kod za dalje korake, kao što je ispis rezultata
+
+    ; Završi program
+    mov eax, 1            ; Kod za izlaznu operaciju (syscall_exit)
+    xor ebx, ebx          ; Kod izlaza
+    int 0x80              ; Izvrši sistemski poziv za izlazak
+
+split_nibbles:
+    ; Ulaz: Registar AX sadrži 16-bitnu vrednost koju treba razdvojiti
+    ; Izlaz: Registri lower_nibble i upper_nibble sadrže niže i više 4 bita
+
+    ; Odvaja niže 4 bita (niži nibl) i smešta ih u lower_nibble
+    mov al, ah
+    and al, 0x0F
+    mov [lower_nibble], al
+
+    ; Odvaja više 4 bita (viši nibl) i smešta ih u upper_nibble
+    shr ax, 4
+    and ax, 0x0F
+    mov [upper_nibble], al
+
+    ret
+
+//////////////////////////////////////////////////
+section .data
+    word_data dw 0xABCD ; Primer podatka tipa reči (16-bitna vrednost)
+    lower_nibble db 0    ; Bajt za niže 4 bita
+    upper_nibble db 0    ; Bajt za više 4 bita
+
+section .text
+    global _start
+
+_start:
+    mov ax, word_data     ; Učitaj reč u registar AX
+    call split_nibbles    ; Pozovi funkciju za odvajanje nižeg i višeg nibla
+
+    ; Rezultati su sada u registrima lower_nibble i upper_nibble
+    ; Ovde možete dodati kod za dalje korake, kao što je ispis rezultata
+
+    ; Završi program
+    mov eax, 1            ; Kod za izlaznu operaciju (syscall_exit)
+    xor ebx, ebx          ; Kod izlaza
+    int 0x80              ; Izvrši sistemski poziv za izlazak
+
+split_nibbles:
+    ; Ulaz: Registar AX sadrži 16-bitnu vrednost koju treba razdvojiti
+    ; Izlaz: Registri lower_nibble i upper_nibble sadrže niže i više 4 bita
+
+    ; Odvaja niže 4 bita (niži nibl) i smešta ih u lower_nibble
+    mov al, ah
+    and al, 0x0F
+    mov [lower_nibble], al
+
+    ; Odvaja više 4 bita (viši nibl) i smešta ih u upper_nibble
+    shr ax, 4
+    and ax, 0x0F
+    mov [upper_nibble], al
+
+    ret
+//////////////////////////////////////////////////
+.data 
+    NizA db 3,2,4,5,6,-2
+    NizB db 7,9,2,1,3,4
+    NizM db 6 dup (?)
+    n dw 6
+.code
+main PROC
+    mov eax,0
+    mov ebx,0
+    mov ecx,0
+    mov edx,0
+    mov esi,0
+    mov edi,0
+uslov:
+    mov al,NizA[esi]
+    mov bl,NizB[esi]
+    cmp al,bl
+    jg vece
+    jl manje
+    je jednako
+vece:
+    mov NizM[edi],1
+    inc edi
+    inc esi
+    cmp si,n
+    jl uslov
+manje:
+    mov NizM[edi],-1
+    inc edi
+    inc esi
+    cmp si,n
+    jl uslov
+jednako:
+    mov NizM[edi],0
+    inc edi
+    inc esi
+    cmp si,n
+    jl uslov
+    exit
+main ENDP
+END main
+//////////////////////////////////////////////////
+
+
+EAX 0000 0000 ceo ovaj
+AX poslednja 4
+AL poslednja dva
+AH pretposlednja dva

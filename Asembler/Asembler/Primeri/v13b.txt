@@ -1,0 +1,59 @@
+TITLE v13b.asm
+
+; Opis: Nizovi
+
+COMMENT !
+Dati su nizovi A i B.
+Formirati niz M po sledecoj formuli:
+	M[i]=1	,	A[i]>B[i] 
+	M[i]=0	,	A[i]=B[i]
+	M[i]=-1	,	A[i]<B[i]
+!
+
+; ukljucivanje biblioteke
+INCLUDE rs32tfzr.inc
+
+
+.data
+	N	dd	6
+	nizA	db	1,3,5,8,2,6
+	nizB	db 	2,1,4,7,2,9
+	nizM	db	6 dup(?)
+
+
+.code
+
+main PROC
+	mov	esi,0	;I
+	mov	ecx,N
+	
+sledeci:
+	mov	al,nizA[esi]
+	mov	bl,nizB[esi]
+	cmp	al,bl
+	jg	vece
+	je	jednako
+	jl	manje
+	
+vece:
+	mov	nizM[esi],1
+	jmp	povecajIndeks
+	
+jednako:
+	mov nizM[esi],0
+	jmp	povecajIndeks
+	
+manje:
+	mov	nizM[esi],-1
+	
+povecajIndeks:
+	inc	esi
+	cmp	esi,ecx
+	jl	sledeci
+
+
+	; povratak u OS
+	exit
+main ENDP
+
+END main

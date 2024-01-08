@@ -1,0 +1,49 @@
+TITLE v09c.asm
+
+; Opis: Kontrola toka izvrsenja programa - procedure
+
+COMMENT !
+Napisati proceduru koja odredjuje broj jedinica u bajtu.
+!
+
+; ukljucivanje biblioteke
+INCLUDE rs32tfzr.inc
+
+
+
+.data
+	bajt	db	6Bh
+	N	dw	8
+	brojac	db ?
+
+.code
+
+main PROC
+	mov	al,bajt
+	call	brojJedinicaUBajtu			
+	mov	brojac,dl
+	
+	; povratak u OS
+	exit
+main ENDP
+
+;---------------------------------------------------------------
+; Procedura za odredjivanje broja jedinica u 8-bitnom podatku.
+;
+; ULAZ
+;	AL - podatak
+; IZLAZ
+;	DL - broj jedinica
+;---------------------------------------------------------------
+brojJedinicaUBajtu	PROC	NEAR
+	mov	dl,0		; brojac=0
+	mov	cx,N
+sledeci:
+	shl	al,1
+	adc	dl,0		; DL <- DL + 0 + CF
+	loop	sledeci
+kraj:
+	ret			;povratak
+brojJedinicaUBajtu	ENDP
+
+END main

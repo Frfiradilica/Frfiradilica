@@ -1,0 +1,47 @@
+TITLE v06.asm
+
+; Opis: Osnovne logicke operacije - pomeranje
+
+; ukljucivanje biblioteke
+INCLUDE rs32tfzr.inc
+
+
+.data
+	bajt	db	02h	;neoznaceni broj
+	levoL	db	?	;logicko pomeranje u levo
+	levoA	db	?	;aritmeticko pomeranje u levo
+	desnoL	db	?	;logicko pomeranje u desno
+	desnoA	db	?	;aritmeticko pomeranje u desno
+
+
+.code
+
+main PROC
+		
+	;logicko pomeranje u levo za 1 mesto
+	mov	al,bajt
+	shl	al,1
+	mov	levoL,al
+	
+	;aritmeticko pomeranje u levo za 3 mesta
+	mov	cl,3
+	mov	al,bajt
+	sal	al,cl
+	mov	levoA,al
+	
+	;logicko pomeranje u desno za 1 mesto
+	mov	al,bajt
+	shr	al,1
+	mov	desnoL,al
+	
+	;aritmeticko pomeranje u desno za 2 mesta
+	mov	cl,2	;brojac za pomeranje
+	mov	al,bajt
+	sar	al,cl
+	mov	desnoA,al
+
+	; povratak u OS
+	exit
+main ENDP
+
+END main

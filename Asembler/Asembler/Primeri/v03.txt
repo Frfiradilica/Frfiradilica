@@ -1,0 +1,29 @@
+TITLE v03.asm
+
+; Opis: problem sa prekoracenjem vrednosti
+
+; ukljucivanje biblioteke
+INCLUDE rs32tfzr.inc
+
+
+.data
+	broj1	DB 250
+	broj2	DB 11
+	
+	zbir	DB ?
+
+.code
+
+main PROC
+	mov	eax,0
+	
+	mov	al,broj1
+	add	al,broj2
+
+	mov	zbir,al
+		
+	; povratak u OS
+	exit
+main ENDP
+
+END main

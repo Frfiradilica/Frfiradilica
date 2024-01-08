@@ -1,0 +1,44 @@
+TITLE v09a.asm
+
+; Opis: Kontrola toka izvrsenja programa - uslovno izvrsavanje, petlja
+
+COMMENT !
+Napisati program koji odredjuje broj jedinica u bajtu.
+!
+
+; ukljucivanje biblioteke
+INCLUDE rs32tfzr.inc
+
+
+
+.data
+	bajt	db	6Bh
+	N	dw	8
+	brojac	db ?
+
+
+.code
+
+main PROC
+	mov	cx,N
+	mov	al,bajt
+	mov	dl,0		; brojac=0
+	
+sledeci:
+	shl	al,1
+	jnc	umanjiBrojac
+	
+	inc	dl				; CF=1, uvecaj brojac jedinica za 1
+	
+umanjiBrojac:
+	loop	sledeci
+	
+	mov	brojac,dl
+
+
+
+	; povratak u OS
+	exit
+main ENDP
+
+END main

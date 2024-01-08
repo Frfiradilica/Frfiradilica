@@ -1,0 +1,76 @@
+TITLE v13a0.asm
+
+; Opis: Nizovi
+
+COMMENT !
+Dat je niz A,
+Formirati niz B koji sadrzi elemente niza A deljive sa 3.
+Resenje sa procedurom.
+!
+
+; ukljucivanje biblioteke
+INCLUDE rs32tfzr.inc
+
+.data
+	N		dd	8
+	nizA	db	1,4,7,3,6,2,9,4
+	nizB db 	8 dup(?)
+
+
+.code
+
+main PROC
+	mov	ecx,N
+	lea 	ebx,nizA
+	lea	edx,nizB
+	call	odrediMod3Niz8
+	
+	; povratak u OS
+	exit
+main ENDP
+
+;-------------------------------------------------------------
+; procedura za formiranje niza 8-bitnih elemenata koji su 
+; deljivi sa 3
+;
+; ULAZ
+;	ECX - dimenzija niza
+;	EBX - adresa polaznog niza
+;	EDX	- adresa odredisnog niza
+; IZLAZ
+;	Odredisni niz formiran u segmentu podataka na adresi EDX
+;-------------------------------------------------------------
+odrediMod3Niz8	PROC
+	push	eax
+	push	esi
+	push	edi
+	
+	;odredjivanje odredisnog niza
+	mov	esi,0		
+	mov	edi,0
+sledeciElement:
+	push	ecx	; da bi se sacuvala vrednost broja elemenata niza
+	mov	ch,3
+	mov	al,[ebx+esi]	; uzmi sledeci element polaznog niza
+	cbw
+	div	ch
+	cmp	ah,0
+	jne	povecajIndeks
+		; ostatak delenja je 0 pa se element dodaje u niz B
+		mov	al,[ebx+esi]
+		mov	[edx+edi],al
+		inc	edi				; j=j+1
+povecajIndeks:
+	inc	esi			; i=i+1
+	pop	ecx		; uzmi broj elemenata niza sa steka
+	cmp	esi,ecx
+	jl	sledeciElement
+	
+	;povratak
+	pop	edi
+	pop	esi
+	pop	eax
+	ret
+odrediMod3Niz8	ENDP
+
+END main

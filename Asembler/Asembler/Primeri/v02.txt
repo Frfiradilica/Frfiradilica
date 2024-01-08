@@ -1,0 +1,40 @@
+TITLE v02.asm
+
+; Opis: predstavljanje negativnih celih brojeva u racunaru
+
+; ukljucivanje biblioteke
+INCLUDE rs32tfzr.inc
+
+
+.data
+	brojB	DB 5
+	brojW	DW 33
+	brojDW	DD 11
+
+	negBrojB	DB ?
+	negBrojW	DW ?
+	negBrojDW	DD ?
+
+.code
+
+main PROC
+	mov	eax,0
+	mov	al,brojB
+	neg	al	
+	mov	negBrojB,al
+
+	mov	eax,0
+	mov	ax,brojW
+	neg	ax	
+	mov	negBrojW,ax
+
+	mov	eax,0
+	mov	eax,brojDW
+	neg	eax	
+	mov	negBrojDW,eax	 	
+	
+	; povratak u OS
+	exit
+main ENDP
+
+END main

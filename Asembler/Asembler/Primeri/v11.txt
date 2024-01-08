@@ -1,0 +1,35 @@
+TITLE v11.asm
+
+; Opis: Kontrola toka izvrsenja programa - uslovno izvrsavanje, petlja
+
+COMMENT !
+Napisati program koji iz podatka tipa DWORD izdvaja bajtove.
+!
+
+; ukljucivanje biblioteke
+INCLUDE rs32tfzr.inc
+
+
+
+.data
+	podatak	dd 22334455h
+	bajt0	db	?	; najnizi bajt
+	bajt1	db	?	
+	bajt2	db	?
+	bajt3	db	?	; najvisi bajt
+
+
+.code
+
+main PROC
+	mov	eax,podatak
+	mov	bajt0,al
+	mov	bajt1,ah
+	shr	eax,16
+	mov	bajt2,al
+	mov	bajt3,ah
+	; povratak u OS
+	exit
+main ENDP
+
+END main

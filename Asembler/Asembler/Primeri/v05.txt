@@ -1,0 +1,57 @@
+TITLE v05.asm
+
+; Opis: osnovne logicke operacije sa neoznacenim 8-bitnim celim brojevima
+
+; ukljucivanje biblioteke
+INCLUDE rs32tfzr.inc
+
+.data
+	; polazne vrednosti
+	broj1	db	35h
+	broj2	db	0fh
+	; rezervisanje prostora za rezultate
+	negacija	db	?
+	i		db	?
+	ili		db	?
+	exili		db	?
+	nula		db	?
+
+
+.code
+
+main PROC
+		
+	; LOGICKA NEGACIJA: not (nepotpuni komplement)
+	mov	al,broj1
+	not	al
+	mov	negacija,al
+	
+	; LOGICKI PROIZVOD: and
+	mov	al,broj1
+	mov	bl,broj2
+	and	al,bl
+	mov	i,al
+	
+	; LOGICKI ZBIR: or
+	mov	al,broj1
+	mov	bl,broj2
+	or	al,bl
+	mov	ili,al
+	
+	; EKSKLUZIVNI LOGICKI ZBIR: xor
+	mov	al,broj1
+	mov	bl,broj2
+	xor	al,bl
+	mov	exili,al
+	
+	; POSTAVLJANJE VREDNOSTI 'NULA'
+	mov	al,broj1
+	; and	al,0
+	xor	al,al		; al <- 0
+	mov	nula,al
+
+	; povratak u OS
+	exit
+main ENDP
+
+END main
