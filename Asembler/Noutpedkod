@@ -1,0 +1,33 @@
+ Елементи који су већи или једнаки од -4 и мањи од 4 уписује у нови низ
+
+.data 
+N dd 6
+nizA db -1,0,7,-4,3,4
+nizM db 6 dup (?)
+
+.code
+main PROC
+
+mov esi,0
+mov ecx,N
+mov eax,0
+
+sledeci:
+  mov al, nizA[esi]
+  cmp al, -4
+  jge vece
+  jmp sledeci
+  
+vece:
+  cmp al, 4
+  jl manje
+  jmp povecajIndeks
+  
+manje:
+  mov nizM[esi], al
+  jmp povecajIndeks
+  
+povecajIndeks:
+  inc esi
+  cmp esi,ecx
+  jl sledeci
